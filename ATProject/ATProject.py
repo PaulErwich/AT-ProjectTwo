@@ -99,6 +99,15 @@ noise = torch.randn(sample_image.shape)
 timesteps = torch.LongTensor([50])
 noisy_image = noise_scheduler.add_noise(sample_image, noise, timesteps)
 
+print(noisy_image.shape)
+
+print(noisy_image)
+
+print(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8))
+print(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8).shape)
+
+print(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8).numpy()[0])
+
 Image.fromarray(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8).numpy()[0])
 
 import torch.nn.functional as F
