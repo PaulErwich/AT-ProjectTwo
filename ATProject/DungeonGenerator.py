@@ -12,14 +12,14 @@ print(dataset)
 @dataclass
 class TrainingConfig:
     image_size = 16
-    train_batch_size = 6
-    eval_batch_size = 4
-    num_epochs = 200
+    train_batch_size = 8
+    eval_batch_size = 16
+    num_epochs = 750
     gradient_accumulation_steps = 1
     learning_rate = 1e-4
     lr_warmup_steps = 500
-    save_image_epochs = 5
-    save_model_epochs = 5
+    save_image_epochs = 50
+    save_model_epochs = 100
     mixed_precision  = "fp16"
     output_dir = "data/generatedRSeed"
 
@@ -132,10 +132,10 @@ def evaluate(config, epoch, pipeline):
     images = pipeline(
         batch_size = config.eval_batch_size,
         generator=torch.Generator(device="cpu").manual_seed(rSeed),
-        num_inference_steps = 100
+        num_inference_steps = 500
         ).images
 
-    image_grid = make_image_grid(images, rows=2, cols=2)
+    image_grid = make_image_grid(images, rows=4, cols=4)
 
     test_dir = os.path.join(config.output_dir, "samples")
     os.makedirs(test_dir,exist_ok=True)
