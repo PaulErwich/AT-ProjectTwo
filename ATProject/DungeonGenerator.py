@@ -1,9 +1,10 @@
 from dataclasses import dataclass
+from sched import scheduler
 from datasets import load_dataset
 import accelerate
 from torch.optim import lr_scheduler
 
-dataset = load_dataset("imagefolder", data_dir="data/TrainingData/", split="train")
+dataset = load_dataset("imagefolder", data_dir="data/TrainingData/32x32Uniform", split="train")
 
 print("setup dataset?")
 
@@ -11,17 +12,17 @@ print(dataset)
 
 @dataclass
 class TrainingConfig:
-    image_size = 16
-    train_batch_size = 8
-    eval_batch_size = 16
-    num_epochs = 750
+    image_size = 32
+    train_batch_size = 10
+    eval_batch_size = 4
+    num_epochs = 500
     gradient_accumulation_steps = 1
     learning_rate = 1e-4
-    lr_warmup_steps = 500
-    save_image_epochs = 50
-    save_model_epochs = 100
+    lr_warmup_steps = 1000
+    save_image_epochs = 100
+    save_model_epochs = 500
     mixed_precision  = "fp16"
-    output_dir = "data/generatedRSeed"
+    output_dir = "data/32x32UNoGenNoFlip"
 
     push_to_hub = False
     hub_model_id = "0"
@@ -45,7 +46,8 @@ from torchvision import transforms
 preprocess = transforms.Compose(
     [
         transforms.Resize((config.image_size, config.image_size)),
-        transforms.RandomHorizontalFlip(),
+        #transforms.RandomHorizontalFlip(),
+        #transforms.RandomVerticalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.5], [0.5]),
         ]
@@ -71,8 +73,8 @@ model = UNet2DModel(
     sample_size = config.image_size,
     in_channels=1,
     out_channels=1,
-    layers_per_block=2,
-    block_out_channels=(16, 16, 32, 64),
+    layers_per_block=1,
+    block_out_channels=(config.image_size, config.image_size * 2, config.image_size * 2, config.image_size * 4),
     down_block_types=(
         "DownBlock2D",
         "DownBlock2D",
@@ -85,7 +87,7 @@ model = UNet2DModel(
         "UpBlock2D",
         "UpBlock2D",
         ),
-    norm_num_groups = 4
+    norm_num_groups = 8
     )
 
 sample_image = dataset[0]["images"].unsqueeze(0)
@@ -131,11 +133,10 @@ def evaluate(config, epoch, pipeline):
     rSeed = torch.Generator().seed()
     images = pipeline(
         batch_size = config.eval_batch_size,
-        generator=torch.Generator(device="cpu").manual_seed(rSeed),
         num_inference_steps = 500
         ).images
 
-    image_grid = make_image_grid(images, rows=4, cols=4)
+    image_grid = make_image_grid(images, rows=2, cols=2)
 
     test_dir = os.path.join(config.output_dir, "samples")
     os.makedirs(test_dir,exist_ok=True)
@@ -215,6 +216,11 @@ from accelerate import notebook_launcher
 args = (config, model, noise_scheduler, optimizer, train_dataloader, lr_scheduler)
 
 notebook_launcher(train_loop, args, num_processes=1)
+
+pipeline = DDPMPipeline(unet = model, scheduler = noise_scheduler)
+
+for i in range(10):
+    evaluate(config, i, pipeline)
 
 print("Hello at end")
 
