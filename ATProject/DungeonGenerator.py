@@ -13,7 +13,7 @@ print(dataset)
 @dataclass
 class TrainingConfig:
     image_size = 32
-    train_batch_size = 10
+    train_batch_size = 4
     eval_batch_size = 4
     num_epochs = 500
     gradient_accumulation_steps = 1
@@ -22,7 +22,7 @@ class TrainingConfig:
     save_image_epochs = 100
     save_model_epochs = 500
     mixed_precision  = "fp16"
-    output_dir = "data/32x32UNoGenNoFlip"
+    output_dir = "data/32x32UNoGenNoFlipSmallBatch"
 
     push_to_hub = False
     hub_model_id = "0"
