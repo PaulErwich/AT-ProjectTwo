@@ -22,7 +22,7 @@ class TrainingConfig:
     save_image_epochs = 100
     save_model_epochs = 500
     mixed_precision  = "fp16"
-    output_dir = "data/32x32UNoGenNoFlipSmallBatch"
+    output_dir = "data/32x32UNoGenNoFlipNAdam"
 
     push_to_hub = False
     hub_model_id = "0"
@@ -43,6 +43,8 @@ fig.show()
 
 from torchvision import transforms
 
+# Random rotations
+# Random flips to help "increase" data set
 preprocess = transforms.Compose(
     [
         transforms.Resize((config.image_size, config.image_size)),
@@ -117,7 +119,7 @@ loss = F.mse_loss(noise_pred, noise)
 
 from diffusers.optimization import get_cosine_schedule_with_warmup
 
-optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate)
+optimizer = torch.optim.NAdam(model.parameters(), lr=config.learning_rate)
 
 lr_scheduler = get_cosine_schedule_with_warmup(
     optimizer = optimizer,
