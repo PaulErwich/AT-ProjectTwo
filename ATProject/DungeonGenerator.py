@@ -13,7 +13,7 @@ print(dataset)
 @dataclass
 class TrainingConfig:
     image_size = 32
-    train_batch_size = 4
+    train_batch_size = 5
     eval_batch_size = 4
     num_epochs = 500
     gradient_accumulation_steps = 1
@@ -22,7 +22,7 @@ class TrainingConfig:
     save_image_epochs = 100
     save_model_epochs = 500
     mixed_precision  = "fp16"
-    output_dir = "data/32x32UNoGenNoFlipNAdam"
+    output_dir = "data/32x32UFinalDatasetmk2"
 
     push_to_hub = False
     hub_model_id = "0"
@@ -39,7 +39,7 @@ for i, image in enumerate(dataset[:4]["image"]):
     axs[i].imshow(image)
     axs[i].set_axis_off()
 
-fig.show()
+# fig.show()
 
 from torchvision import transforms
 
@@ -48,8 +48,17 @@ from torchvision import transforms
 preprocess = transforms.Compose(
     [
         transforms.Resize((config.image_size, config.image_size)),
-        #transforms.RandomHorizontalFlip(),
-        #transforms.RandomVerticalFlip(),
+        transforms.RandomChoice([
+            transforms.RandomRotation(degrees=[0, 0]),
+            transforms.RandomRotation(degrees=[90, 90]),
+            transforms.RandomRotation(degrees=[180, 180]),
+            transforms.RandomRotation(degrees=[270, 270]),
+            ]),
+        #transforms.RandomApply(transforms.RandomRotation(degrees=(90,90)), 0.5),
+        #transforms.RandomApply(transforms.RandomRotation(degrees=(180,180)), 0.5),
+        #transforms.RandomRotation(degrees=(0, 90, 180, 270)),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.5], [0.5]),
         ]
@@ -119,7 +128,7 @@ loss = F.mse_loss(noise_pred, noise)
 
 from diffusers.optimization import get_cosine_schedule_with_warmup
 
-optimizer = torch.optim.NAdam(model.parameters(), lr=config.learning_rate)
+optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate)
 
 lr_scheduler = get_cosine_schedule_with_warmup(
     optimizer = optimizer,
@@ -221,7 +230,7 @@ notebook_launcher(train_loop, args, num_processes=1)
 
 pipeline = DDPMPipeline(unet = model, scheduler = noise_scheduler)
 
-for i in range(10):
+for i in range(20):
     evaluate(config, i, pipeline)
 
 print("Hello at end")
