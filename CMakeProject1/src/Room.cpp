@@ -47,10 +47,7 @@ bool Room::init(std::string path, bool build_map)
 				break;
 			}
 			}
-
-			std::cout << int(image.getPixel(j, i).r) << " " << int(image.getPixel(j, i).g) << " " << int(image.getPixel(j, i).b) << " | ";
 		}
-		std::cout << std::endl;
 	}
 
 	if (build_map)

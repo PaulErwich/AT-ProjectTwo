@@ -9,7 +9,8 @@ RoomValidator::RoomValidator()
 
 bool RoomValidator::validateRoom(std::string imagePath)
 {
-	room.init(imagePath, false);
+	if (!room.init(imagePath, false))
+		return false;
 
 	// Check what doors the generated room has
 	bool left = !room.getCostMap()[14 * WIDTH + 0] && !room.getCostMap()[15 * WIDTH + 0] &&
@@ -32,6 +33,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		if (canPathfind(room, { 0, 14 }, { 31, 14 }) && canPathfind(room, { 14, 0 }, { 14, 31 }))
 		{
 			moveFile(imagePath, "data/dungeonImages/door4/");
+			return true;
 		}
 	}
 	if (left && right && top)
@@ -40,6 +42,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// Room valid - left_right_top
 			moveFile(imagePath, "data/dungeonImages/door3LRT/");
+			return true;
 		}
 	}
 	if (left && right && bottom)
@@ -48,6 +51,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// Room valid - left_right_bottom
 			moveFile(imagePath, "data/dungeonImages/door3LRB/");
+			return true;
 		}
 	}
 	if (left && top && bottom)
@@ -56,6 +60,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// left_top_bottom
 			moveFile(imagePath, "data/dungeonImages/door3LTB/");
+			return true;
 		}
 	}
 	if (right && top && bottom)
@@ -64,6 +69,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// right_top_bottom
 			moveFile(imagePath, "data/dungeonImages/door3RTB/");
+			return true;
 		}
 	}
 	if (left && right)
@@ -72,6 +78,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// left_right
 			moveFile(imagePath, "data/dungeonImages/door2LR/");
+			return true;
 		}
 	}
 	if (top && bottom)
@@ -80,6 +87,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// top_bottom
 			moveFile(imagePath, "data/dungeonImages/door2TB/");
+			return true;
 		}
 	}
 	if (left && top)
@@ -88,6 +96,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// left_top
 			moveFile(imagePath, "data/dungeonImages/door2LT/");
+			return true;
 		}
 	}
 	if (left && bottom)
@@ -96,6 +105,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// left_bottom
 			moveFile(imagePath, "data/dungeonImages/door2LB/");
+			return true;
 		}
 	}
 	if (right && top)
@@ -104,6 +114,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// right_top
 			moveFile(imagePath, "data/dungeonImages/door2RT/");
+			return true;
 		}
 	}
 	if (right && bottom)
@@ -112,6 +123,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 		{
 			// right_bottom
 			moveFile(imagePath, "data/dungeonImages/door2RB/");
+			return true;
 		}
 	}
 
@@ -119,23 +131,29 @@ bool RoomValidator::validateRoom(std::string imagePath)
 	{
 		// left door
 		moveFile(imagePath, "data/dungeonImages/door1L/");
+		return true;
 	}
 	if (right && !left && !top && !bottom)
 	{
 		// right door
 		moveFile(imagePath, "data/dungeonImages/door1R/");
+		return true;
 	}
 
 	if (top && !left && !right && !bottom)
 	{
 		// top door
 		moveFile(imagePath, "data/dungeonImages/door1T/");
+		return true;
 	}
 	if (bottom && !left && !right && !top)
 	{
 		// bottom door
 		moveFile(imagePath, "data/dungeonImages/door1B/");
+		return true;
 	}
+
+	moveFile(imagePath, "data/dungeonImages/invalid/");
 
 	return true;
 }

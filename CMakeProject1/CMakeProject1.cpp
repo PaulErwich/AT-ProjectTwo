@@ -3,6 +3,7 @@
 
 #include "CMakeProject1.h"
 #include <SFML/Graphics.hpp>
+#include <filesystem>
 
 #include "src/Room.h"
 #include "src/Pathfinding.h"
@@ -17,23 +18,15 @@ int main()
 	command += filename;
 	int filesToGen = 5;
 	command += " " + std::to_string(filesToGen);
-	system(command.c_str());
+	//system(command.c_str());
 
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Dungeon Game");
 	window.setFramerateLimit(60);
 
-	Room room;
-
-	//room.init("data/genOutput/samples/0005.png");
-
-	bool test = canPathfind(room, Location(0, 14), Location(12, 31));
-
 	RoomValidator temp;
 
 	temp.validateRoom("data/genOutput/samples/0005.png");
-
-	std::cout << test;
 
 	sf::Clock clock;
 
@@ -50,13 +43,37 @@ int main()
 			{
 				window.close();
 			}
+
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::G)
+				{
+					system(command.c_str());
+				}
+				if (event.key.code == sf::Keyboard::V)
+				{
+					auto dirIter = std::filesystem::directory_iterator("data/genOutput/samples/");
+					for (auto& entry : dirIter)
+					{
+						std::cout << entry.path() << std::endl;
+						std::cout << entry.path().filename() << std::endl;
+						if (entry.is_regular_file())
+						{
+							temp.validateRoom(entry.path().string());
+						}
+					}
+				}
+				if (event.key.code == sf::Keyboard::B)
+				{
+					// Build dungeon code
+				}
+			}
 		}
 
 		window.clear(sf::Color::Black);
 
 		if (window.isOpen())
 		{
-			room.render(window);
 			window.display();
 		}
 	}
