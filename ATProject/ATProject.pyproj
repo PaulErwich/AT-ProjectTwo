@@ -24,6 +24,7 @@
   <ItemGroup>
     <Compile Include="ATProject.py" />
     <Compile Include="DungeonGenerator.py" />
+    <Compile Include="generateImage.py" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env1\">

@@ -15,14 +15,14 @@ class TrainingConfig:
     image_size = 32
     train_batch_size = 5
     eval_batch_size = 4
-    num_epochs = 500
+    num_epochs = 1000
     gradient_accumulation_steps = 1
     learning_rate = 1e-4
     lr_warmup_steps = 1000
-    save_image_epochs = 100
+    save_image_epochs = 1000
     save_model_epochs = 500
     mixed_precision  = "fp16"
-    output_dir = "data/32x32UFinalDatasetmk2"
+    output_dir = "data/FinalModel"
 
     push_to_hub = False
     hub_model_id = "0"
