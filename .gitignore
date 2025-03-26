@@ -171,3 +171,6 @@ cython_debug/
 .pypirc
 
 ATProject/.vs
+
+CMakeProject1/.vs
+CmakeProject1/out
