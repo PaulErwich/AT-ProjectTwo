@@ -165,11 +165,12 @@ void RoomValidator::moveFile(std::string inPath, std::string outPath)
 
 	for (auto& entry : dirIter)
 	{
-		std::cout << entry.path().filename();
+		//std::cout << entry.path().filename();
 		if (entry.is_regular_file())
 		{
 			++fileCount;
 		}
 	}
 	std::filesystem::rename(inPath, outPath + std::to_string(fileCount) + ".png");
+	std::cout << "New room in: " + outPath + "\n";
 }

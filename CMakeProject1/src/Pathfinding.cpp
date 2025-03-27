@@ -19,12 +19,12 @@ std::vector<sf::Vector2i> pathfinding(sf::Vector2f xy, Room& map, GameObject& en
 
     if (tile_cost < 1)
     {
-        std::cout << "finding" << std::endl;
+        //std::cout << "finding" << std::endl;
         AStar(map, start, end, came_from, cost_so_far);
 
         for (auto loc : reconstruct_path(start, end, came_from))
         {
-            std::cout << std::get<0>(loc) << " " << std::get<1>(loc) << "\n";
+            //std::cout << std::get<0>(loc) << " " << std::get<1>(loc) << "\n";
             tiles_to_visit.push_back(map.world(loc));
         }
     }
@@ -44,12 +44,12 @@ bool canPathfind(Room& map, Location start, Location end)
 
     if (tile_cost < 1)
     {
-        std::cout << "finding" << std::endl;
+        //std::cout << "finding" << std::endl;
         AStar(map, start, end, came_from, cost_so_far);
 
         for (auto loc : reconstruct_path(start, end, came_from))
         {
-            std::cout << std::get<0>(loc) << " " << std::get<1>(loc) << "\n";
+            //std::cout << std::get<0>(loc) << " " << std::get<1>(loc) << "\n";
             tiles_to_visit.push_back(map.world(loc));
         }
     }

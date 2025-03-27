@@ -55,8 +55,8 @@ int main()
 					auto dirIter = std::filesystem::directory_iterator("data/genOutput/samples/");
 					for (auto& entry : dirIter)
 					{
-						std::cout << entry.path() << std::endl;
-						std::cout << entry.path().filename() << std::endl;
+						//std::cout << entry.path() << std::endl;
+						//std::cout << entry.path().filename() << std::endl;
 						if (entry.is_regular_file())
 						{
 							temp.validateRoom(entry.path().string());
