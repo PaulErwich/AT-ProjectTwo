@@ -29,7 +29,7 @@ int main()
 
 	Dungeon test;
 	test.GenerateDungeonLayout();
-	test.BuildFullDungeon(true);
+	test.BuildFullDungeon();
 
 
 	sf::Clock clock;
@@ -75,7 +75,7 @@ int main()
 				if (event.key.code == sf::Keyboard::R)
 				{
 					test.GenerateDungeonLayout();
-					test.BuildFullDungeon();
+					test.BuildFullDungeon(true);
 				}
 			}
 		}

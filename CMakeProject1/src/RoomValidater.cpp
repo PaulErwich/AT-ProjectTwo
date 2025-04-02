@@ -32,7 +32,7 @@ bool RoomValidator::validateRoom(std::string imagePath)
 	{
 		if (canPathfind(room, { 0, 14 }, { 31, 14 }) && canPathfind(room, { 14, 0 }, { 14, 31 }))
 		{
-			moveFile(imagePath, "data/dungeonImages/door4/");
+			moveFile(imagePath, "data/dungeonImages/door4LRTB/");
 			return true;
 		}
 	}

@@ -95,6 +95,11 @@ void Dungeon::GenerateDungeonLayout()
 			{
 				right = true;
 			}
+			if (std::find(room_nums.begin(), room_nums.end(), i * MAP_WIDTH + j - 1) == room_nums.end() &&
+				genLayout[i * MAP_WIDTH + j - 1] == DOOR_NONE)
+			{
+				R = DOOR_OUT_OF_BOUNDS;
+			}
 		}
 		if (j + 1 <= MAP_WIDTH - 1)
 		{
@@ -102,6 +107,11 @@ void Dungeon::GenerateDungeonLayout()
 			if (DOOR_TYPE_STRINGS[L].find("L") != std::string::npos)
 			{
 				left = true;
+			}
+			if (std::find(room_nums.begin(), room_nums.end(), i * MAP_WIDTH + j + 1) == room_nums.end() &&
+				genLayout[i * MAP_WIDTH + j + 1] == DOOR_NONE)
+			{
+				L = DOOR_OUT_OF_BOUNDS;
 			}
 		}
 		if (i - 1 >= 0)
@@ -111,6 +121,11 @@ void Dungeon::GenerateDungeonLayout()
 			{
 				bottom = true;
 			}
+			if (std::find(room_nums.begin(), room_nums.end(), (i - 1) * MAP_WIDTH + j) == room_nums.end() &&
+				genLayout[(i - 1) * MAP_WIDTH + j] == DOOR_NONE)
+			{
+				B = DOOR_OUT_OF_BOUNDS;
+			}
 		}
 		if (i + 1 <= MAP_HEIGHT - 1)
 		{
@@ -118,6 +133,11 @@ void Dungeon::GenerateDungeonLayout()
 			if (DOOR_TYPE_STRINGS[T].find("T") != std::string::npos)
 			{
 				top = true;
+			}
+			if (std::find(room_nums.begin(), room_nums.end(), (i + 1) * MAP_WIDTH + j) == room_nums.end() &&
+				genLayout[(i + 1) * MAP_WIDTH + j] == DOOR_NONE)
+			{
+				T = DOOR_OUT_OF_BOUNDS;
 			}
 		}
 
@@ -234,7 +254,6 @@ void Dungeon::GenerateDungeonLayout()
 				(top && R == DOOR_NONE) ||
 				(R == DOOR_NONE && T == DOOR_NONE))
 			{
-				std::cout << right << " " << top << " " << R << " " << T << std::endl;
 				rooms.push_back(DOOR2_LB);
 			}
 		}
@@ -269,8 +288,6 @@ void Dungeon::GenerateDungeonLayout()
 		if (std::find(room_nums.begin(), room_nums.end(), roomGen) != room_nums.end())
 			room_nums.erase(std::find(room_nums.begin(), room_nums.end(), roomGen));
 	}
-
-	std::cout << "BREAK!" << std::endl;
 }
 
 void Dungeon::render(sf::RenderWindow& window)

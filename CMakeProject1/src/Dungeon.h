@@ -28,10 +28,10 @@ enum DOOR_TYPES
 	DOOR_OUT_OF_BOUNDS
 };
 
-static const std::string DOOR_TYPE_STRINGS[16] = {
+static const std::string DOOR_TYPE_STRINGS[17] = {
 	"door4LRTB", "door3LRT", "door3LRB", "door3LTB", "door3RTB",
 	"door2LR", "door2TB", "door2LT", "door2LB", "door2RT", "door2RB",
-	"door1L", "door1R", "door1T", "door1B", ""
+	"door1L", "door1R", "door1T", "door1B", "", ""
 };
 
 class Dungeon
@@ -65,7 +65,7 @@ private:
 		DOOR2_RB, DOOR3_LRB, DOOR3_LRB, DOOR2_LR, DOOR1_L,
 		DOOR1_T, DOOR2_TB, DOOR3_RTB, DOOR2_LR, DOOR2_LB,
 		DOOR1_R, DOOR4LRTB, DOOR4LRTB, DOOR3_LRB, DOOR2_LT,
-		DOOR2_RB, DOOR2_LT, DOOR2_RB, DOOR3_LTB, DOOR1_B,
+		DOOR2_RB, DOOR2_LT, DOOR2_RT, DOOR3_LTB, DOOR1_B,
 		DOOR2_RT, DOOR2_LR, DOOR2_LR, DOOR3_LRT, DOOR2_LT
 	};
 };
