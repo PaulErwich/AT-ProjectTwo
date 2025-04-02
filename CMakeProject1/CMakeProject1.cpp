@@ -72,6 +72,11 @@ int main()
 					// Build dungeon code
 					test.BuildFullDungeon();
 				}
+				if (event.key.code == sf::Keyboard::R)
+				{
+					test.GenerateDungeonLayout();
+					test.BuildFullDungeon();
+				}
 			}
 		}
 
