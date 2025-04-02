@@ -8,25 +8,29 @@
 #include "src/Room.h"
 #include "src/Pathfinding.h"
 #include "src/RoomValidater.h"
+#include "src/Dungeon.h"
 
 using namespace std;
 
 int main()
 {
+	srand((unsigned)time(0));
+
 	std::string filename = "generateImage.py";
 	std::string command = "python ";
 	command += filename;
-	int filesToGen = 5;
+	int filesToGen = 50;
 	command += " " + std::to_string(filesToGen);
-	//system(command.c_str());
 
-
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Dungeon Game");
+	sf::RenderWindow window(sf::VideoMode(1280, 1280), "Dungeon Game");
 	window.setFramerateLimit(60);
 
 	RoomValidator temp;
 
-	temp.validateRoom("data/genOutput/samples/0005.png");
+	Dungeon test;
+	test.GenerateDungeonLayout();
+	test.BuildFullDungeon(true);
+
 
 	sf::Clock clock;
 
@@ -66,6 +70,7 @@ int main()
 				if (event.key.code == sf::Keyboard::B)
 				{
 					// Build dungeon code
+					test.BuildFullDungeon();
 				}
 			}
 		}
@@ -74,6 +79,8 @@ int main()
 
 		if (window.isOpen())
 		{
+			test.render(window);
+
 			window.display();
 		}
 	}

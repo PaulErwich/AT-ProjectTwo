@@ -5,34 +5,20 @@
 
 #include "Tile.h"
 
-enum DOOR_TYPES
-{
-	DOOR4,
-	DOOR3_LEFT_RIGHT_TOP,
-	DOOR3_LEFT_RIGHT_BOTTOM,
-	DOOR3_LEFT_TOP_BOTTOM,
-	DOOR3_RIGHT_TOP_BOTTOM,
-	DOOR2_LEFT_RIGHT,
-	DOOR2_TOP_BOTTOM,
-	DOOR2_LEFT_TOP,
-	DOOR2_LEFT_BOTTOM,
-	DOOR2_RIGHT_TOP,
-	DOOR2_RIGHT_BOTTOM,
-	DOOR1_LEFT,
-	DOOR1_RIGHT,
-	DOOR1_TOP,
-	DOOR1_BOTTOM
-};
-
 class Room
 {
 public:
 	Room();
 	~Room() = default;
 
-	bool init(std::string path, bool build_map = true);
+	bool init(std::string path, bool build_map = true, int room_pos = 0);
 
 	void buildMap();
+
+	void clearMap()
+	{
+		layer.clear();
+	}
 
 	void update(float dt);
 	void render(sf::RenderWindow& window);
@@ -47,9 +33,11 @@ public:
 
 	const int* getCostMap() { return cost_map; }
 private:
-	const int SCALE = 2;
+	const int SCALE = 1;
 	static const int WIDTH = 32;
 	static const int HEIGHT = 32;
+
+	int room_position;
 
 	sf::Texture tilemap;
 	sf::Image image;

@@ -40,7 +40,7 @@ def evaluate(config, epoch, pipeline):
     rSeed = torch.Generator().seed()
     images = pipeline(
         batch_size = config.eval_batch_size,
-        num_inference_steps = 500
+        num_inference_steps = 10
         ).images
 
     image_grid = make_image_grid(images, rows=1, cols=1)

@@ -16,7 +16,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 
 # Add source to this project's executable.
-add_executable (CMakeProject1 "CMakeProject1.cpp" "CMakeProject1.h" "src/Room.h" "src/Room.cpp" "src/RoomValidater.h" "src/RoomValidater.cpp" "src/Pathfinding.cpp" "src/Pathfinding.h" "src/Tile.cpp" "src/Tile.h" "src/GameObject.cpp" "src/GameObject.h")
+add_executable (CMakeProject1 "CMakeProject1.cpp" "CMakeProject1.h" "src/Room.h" "src/Room.cpp" "src/RoomValidater.h" "src/RoomValidater.cpp" "src/Pathfinding.cpp" "src/Pathfinding.h" "src/Tile.cpp" "src/Tile.h" "src/GameObject.cpp" "src/GameObject.h" "src/Dungeon.h" "src/Dungeon.cpp")
 
 target_link_libraries (CMakeProject1 ${CMAKE_SOURCE_DIR}/lib/sfml-graphics.lib)
 target_link_libraries (CMakeProject1 ${CMAKE_SOURCE_DIR}/lib/sfml-audio.lib)

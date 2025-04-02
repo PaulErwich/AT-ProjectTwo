@@ -6,14 +6,18 @@ Room::Room()
 	for (auto& num : cost_map)
 		num = 0;
 
+	room_position = 0;
+
 	if (!tilemap.loadFromFile("data/tilemap_packed.png"))
 	{
 		std::cout << "Tilemap failed to load\n";
 	}
 }
 
-bool Room::init(std::string path, bool build_map)
+bool Room::init(std::string path, bool build_map, int room_pos)
 {
+	room_position = room_pos;
+
 	if (!image.loadFromFile(path))
 	{
 		std::cout << "Failed to load " + path + "\n";
@@ -58,14 +62,27 @@ bool Room::init(std::string path, bool build_map)
 
 void Room::buildMap()
 {
+	int row = 0;
+	int col = 0;
+	for (int i = 0; i < room_position; i++)
+	{
+		col++;
+		if (col == 5)
+		{
+			col = 0;
+			row++;
+		}
+	}
+
+	layer.clear();
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++)
 		{
 			if (cost_map[i * WIDTH + j])
-				layer.emplace_back(std::make_unique<Tile>(tilemap, j, i, 6, 1, SCALE));
+				layer.emplace_back(std::make_unique<Tile>(tilemap, j + (col * 32), i + (row * 32), 6, 1, SCALE));
 			else
-				layer.emplace_back(std::make_unique<Tile>(tilemap, j, i, 14, 0, SCALE));
+				layer.emplace_back(std::make_unique<Tile>(tilemap, j + (col * 32), i + (row * 32), 14, 0, SCALE));
 		}
 	}
 }
