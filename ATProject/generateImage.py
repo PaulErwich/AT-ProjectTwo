@@ -16,7 +16,7 @@ from diffusers import UNet2DModel, optimization
 class TrainingConfig:
     image_size = 32
     train_batch_size = 5
-    eval_batch_size = 4
+    eval_batch_size = 16
     num_epochs = 500
     gradient_accumulation_steps = 1
     learning_rate = 1e-4
@@ -24,7 +24,7 @@ class TrainingConfig:
     save_image_epochs = 100
     save_model_epochs = 500
     mixed_precision  = "fp16"
-    output_dir = "data/testMakingJustImages"
+    output_dir = "data/reportExamples"
 
     push_to_hub = False
     hub_model_id = "0"
@@ -42,7 +42,7 @@ def evaluate(config, epoch, pipeline):
         num_inference_steps = 500
         ).images
 
-    image_grid = make_image_grid(images, rows=2, cols=2)
+    image_grid = make_image_grid(images, rows=4, cols=4)
 
     test_dir = os.path.join(config.output_dir, "samples")
     os.makedirs(test_dir,exist_ok=True)
@@ -55,5 +55,5 @@ noise_scheduler = DDPMScheduler.from_pretrained("data/32x32UFinalDatasetmk2/sche
 
 pipeline = DDPMPipeline(unet = model, scheduler = noise_scheduler)
 
-for i in range(10):
+for i in range(5):
     evaluate(config, i + 1, pipeline)

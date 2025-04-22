@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b5d084ec-7c37-43cf-8c9a-d4f3b7fc47a4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DungeonGenerator.py</StartupFile>
+    <StartupFile>generateImage.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
