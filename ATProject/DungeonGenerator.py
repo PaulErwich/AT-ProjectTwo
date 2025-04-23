@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from sched import scheduler
 from datasets import load_dataset
-import accelerate
 from torch.optim import lr_scheduler
 
 dataset = load_dataset("imagefolder", data_dir="data/TrainingData/32x32Uniform", split="train")
@@ -31,15 +30,6 @@ class TrainingConfig:
     seed = 1 # This is used for generation so needs to change?
 
 config = TrainingConfig()
-
-import matplotlib.pyplot as plt
-
-fig, axs = plt.subplots(1, 4, figsize=(16, 4))
-for i, image in enumerate(dataset[:4]["image"]):
-    axs[i].imshow(image)
-    axs[i].set_axis_off()
-
-# fig.show()
 
 from torchvision import transforms
 
