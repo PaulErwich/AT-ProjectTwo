@@ -3,8 +3,7 @@ Advanced tech project two. Dungeon layout generation using generative AI
 
 How to setup and run project:
 
-Requires Visual studio 2022
-
+Requires Visual studio 2022/n
 Need the Python development and Desktop development with C++ modules
 for visual studio installed
 
