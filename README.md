@@ -3,7 +3,8 @@ Advanced tech project two. Dungeon layout generation using generative AI
 
 How to setup and run project:
 
-Requires Visual studio 2022/n
+Requires Visual studio 2022
+
 Need the Python development and Desktop development with C++ modules
 for visual studio installed
 
@@ -16,17 +17,16 @@ Install "Windows Installer (64-bit)" from bottom of the page
 Select custom installation and ensure "Add Python to environment variables" 
 is ticked, otherwise the C++ program will not be able to run the python script.
 
-Create virtual environment
-Requires the following modules installed via pip:
+When opening visual studio, open ATProject.sln which is inside the ATProject folder
+
+When adding an environment, add an existing environment and choose
+the Python 3.12 environment from the python installation
+
+Install the following modules using PIP
 accelerate
 datasets
 diffusers
 torchvision
-
-For base version 3.12.7
-torch
-diffusers
-accelerate
 
 This should install all relevant dependancies required to run the project files.
 
