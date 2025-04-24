@@ -39,7 +39,7 @@ def evaluate(config, epoch, pipeline):
     rSeed = torch.Generator().seed()
     images = pipeline(
         batch_size = config.eval_batch_size,
-        num_inference_steps = 500
+        num_inference_steps = 20
         ).images
 
     image_grid = make_image_grid(images, rows=4, cols=4)
@@ -55,5 +55,5 @@ noise_scheduler = DDPMScheduler.from_pretrained("data/32x32UFinalDatasetmk2/sche
 
 pipeline = DDPMPipeline(unet = model, scheduler = noise_scheduler)
 
-for i in range(5):
+for i in range(100):
     evaluate(config, i + 1, pipeline)

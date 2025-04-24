@@ -1,6 +1,10 @@
 # AT Project 2
 Advanced tech project two. Dungeon layout generation using generative AI
 
+Inside the Python project, there are several test generations from different
+datasets. The import ones are "data/32x32UFinalDatasetmk2" and the training
+data is "data/TrainingData/32x32Uniform"
+
 How to setup and run project:
 
 Requires Visual studio 2022
