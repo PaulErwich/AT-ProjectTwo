@@ -21,11 +21,11 @@ bool RoomValidator::validateRoom(std::string imagePath)
 
 	bool top = !room.getCostMap()[0 * WIDTH + 14] && !room.getCostMap()[0 * WIDTH + 15] &&
 		!room.getCostMap()[0 * WIDTH + 16] && !room.getCostMap()[0 * WIDTH + 17];
-
+	
 	bool bottom = !room.getCostMap()[31 * WIDTH + 14] && !room.getCostMap()[31 * WIDTH + 15] &&
 		!room.getCostMap()[31 * WIDTH + 16] && !room.getCostMap()[31 * WIDTH + 17];
 
-	std::cout << top << " " << bottom << " " << left << " " << right << " " << std::endl;
+	//std::cout << top << " " << bottom << " " << left << " " << right << " " << std::endl;
 
 	// Now check if they're accessible
 	if (left && right && top && bottom)

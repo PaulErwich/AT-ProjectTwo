@@ -19,7 +19,7 @@ int main()
 	std::string filename = "generateImage.py";
 	std::string command = "python ";
 	command += filename;
-	int filesToGen = 50;
+	int filesToGen = 100;
 	command += " " + std::to_string(filesToGen);
 
 	sf::RenderWindow window(sf::VideoMode(1280, 1280), "Dungeon Game");
