@@ -1,13 +1,15 @@
 # AT Project 2
 Advanced tech project two. Dungeon layout generation using generative AI
 
-How to run setup and run project:
+How to setup and run project:
 
 Requires Visual studio 2022
+
 Need the Python development and Desktop development with C++ modules
 for visual studio installed
 
 Python:
+
 Requires a Python 3.12.7
 https://www.python.org/downloads/release/python-3127/
 Install "Windows Installer (64-bit)" from bottom of the page
