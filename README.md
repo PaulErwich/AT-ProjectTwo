@@ -2,8 +2,11 @@
 Advanced tech project two. Dungeon layout generation using generative AI
 
 Inside the Python project, there are several test generations from different
-datasets. The import ones are "data/32x32UFinalDatasetmk2" and the training
+datasets. 
+The final generative model is "data/32x32UFinalDatasetmk2" and the training
 data is "data/TrainingData/32x32Uniform"
+The "data/reportExamples" folder contains a collection of images generated
+with the model.
 
 How to setup and run project:
 
